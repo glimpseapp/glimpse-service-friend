@@ -57,3 +57,9 @@ kubectl port-forward [CASSANDRA_POD_NAME] 9042:9042
 ```
 
 
+
+TODO
+=====
+
+- Make sure when creating a request another one doesn't exists
+- When deleting one request make sure it deletes only one 
