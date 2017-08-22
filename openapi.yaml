@@ -23,12 +23,115 @@ paths:
           schema:
             $ref: "#/definitions/SuccessResponse"
 
+  "/request":
+
+    get:
+      description: Get the list of request for this user
+      operationId: FriendRequestGet
+      parameters:
+      - in: body
+        name: request
+        description: UserId who is checking the requests
+        required: true
+        schema:
+          $ref: "#/definitions/FriendRequestGetParameters"
+      responses:
+        200:
+          description: Return true if the request was accepted
+          schema:
+            $ref: "#/definitions/FriendRequestGetResponse"
+        404:
+          description: Friend request not found
+
+    post:
+      description: Send a friend request
+      operationId: FriendRequestPost
+      parameters:
+      - in: body
+        name: request
+        description: UserId and request to UserId
+        required: true
+        schema:
+          $ref: "#/definitions/FriendRequestPostParameters"
+      responses:
+        200:
+          description: Return true if the request was accepted
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        404:
+          description: Friend request not found
+
+  "/request/{requestId}/accept":
+    post:
+      description: Accept a friend request
+      operationId: FriendRequestAccept
+      parameters:
+      - in: path
+        name: requestId
+        description: Id of the request
+        required: true
+        type: string
+      responses:
+        200:
+          description: Return the user information
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        404:
+          description: Friend request not found
+
+  "/request/{requestId}/reject":
+    post:
+      description: Reject a friend request
+      operationId: FriendRequestReject
+      parameters:
+      - in: path
+        name: requestId
+        description: Id of the request
+        required: true
+        type: string
+      responses:
+        200:
+          description: Return true if the request was rejected
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        404:
+          description: Friend request not found
+
 definitions:
   SuccessResponse:
     type: object
     properties:
       status:
         type: boolean
+
+  FriendRequestGetParameters:
+    type: object
+    properties:
+      user_id:
+        description: UserId of the sender
+        type: string
+
+  FriendRequestPostParameters:
+    type: object
+    properties:
+      user_id:
+        description: UserId of the sender
+        type: string
+      receiver_id:
+        description: UserId of the receiver
+        type: string
+
+  FriendRequestGetResponse:
+    type: array
+    items:
+      $ref: "#/definitions/FriendRequestList"
+
+  FriendRequestList:
+    type: object
+    properties:
+      receiver_id:
+        description: UserId of the receiver
+        type: string
 
 securityDefinitions:
   api_key:

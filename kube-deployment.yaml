@@ -16,7 +16,7 @@ spec:
           "-p", "8081",
           "-a", "127.0.0.1:5000",
           "-s", "friend.glimpse.online",
-          "-v", "2017-08-22r0",
+          "-v", "2017-08-22r4",
         ]
         ports:
           - containerPort: 8081
