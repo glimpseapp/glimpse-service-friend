@@ -8,4 +8,4 @@ CASSANDRA_HOSTS = os.getenv("CASSANDRA_HOSTS", None)
 if isinstance(CASSANDRA_HOSTS, str):
     CASSANDRA_HOSTS = CASSANDRA_HOSTS.split(',')
 
-USER_KEYSPACE = "friend"
+FRIEND_KEYSPACE = "friend"

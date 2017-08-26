@@ -5,7 +5,7 @@ CREATE TABLE friend.friend_relation(
   friend_id TEXT,
   friend_since timestamp,
 
-  PRIMARY KEY ((user_id, friend_id), friend_since)
+  PRIMARY KEY (user_id, friend_since)
 ) WITH CLUSTERING ORDER BY (friend_since DESC);
 
 CREATE TABLE friend.request_by_sender_id (

@@ -5,7 +5,7 @@ from cassandra.cqlengine.query import LWTException
 from flask import make_response, request
 from flask_restful import Resource
 
-from conf.config import CASSANDRA_HOSTS, USER_KEYSPACE
+from conf.config import CASSANDRA_HOSTS, FRIEND_KEYSPACE
 from model.friend import RequestBySenderId, RequestByReceiverId, FriendRelation
 
 
@@ -16,7 +16,7 @@ class AcceptRequest(Resource):
         user_id = data.get("user_id")
         request_id = data.get("request_id")
 
-        connection.setup(hosts=CASSANDRA_HOSTS, default_keyspace=USER_KEYSPACE)
+        connection.setup(hosts=CASSANDRA_HOSTS, default_keyspace=FRIEND_KEYSPACE)
 
         friend_request_object = RequestByReceiverId.get(receiver_id=user_id, request_id=request_id).to_object()
 

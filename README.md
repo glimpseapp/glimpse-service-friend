@@ -61,5 +61,7 @@ kubectl port-forward [CASSANDRA_POD_NAME] 9042:9042
 TODO
 =====
 
+- Implement Block / Unblock users
+- Implement reject friendship adding user in rejected list
 - Make sure when creating a request another one doesn't exists
 - When deleting one request make sure it deletes only one 

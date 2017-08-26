@@ -10,14 +10,14 @@ def date_now():
 
 class FriendRelation(Model):
     user_id = columns.Text(primary_key=True)
-    friend_id = columns.Text(primary_key=False)
+    friend_id = columns.Text()
     friend_since = columns.DateTime(default=date_now)
 
     def to_object(self):
         return {
             'user_id': str(self.user_id),
             'friend_id': self.friend_id,
-            'friend_since': self.time.isoformat(),
+            'friend_since': self.friend_since.isoformat(),
         }
 
 

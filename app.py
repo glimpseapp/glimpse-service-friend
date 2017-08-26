@@ -3,6 +3,7 @@ from flask_restful import Api
 
 from conf.config import HTTP_HOST, HTTP_PORT
 from service.accept_request import AcceptRequest
+from service.get_friend_list import GetFriendList
 from service.healthz import Healthz
 from service.get_friend_requests import GetFriendRequests
 from service.reject_request import RejectRequest
@@ -12,6 +13,7 @@ app = Flask(__name__)
 api = Api(app)
 
 api.add_resource(Healthz, '/healthz')
+api.add_resource(GetFriendList, '/friends/<user_id>')
 api.add_resource(SendFriendRequest, '/request')
 api.add_resource(GetFriendRequests, '/requests')
 api.add_resource(AcceptRequest, '/request/accept')
