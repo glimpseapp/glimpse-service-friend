@@ -13,9 +13,9 @@ app = Flask(__name__)
 api = Api(app)
 
 api.add_resource(Healthz, '/healthz')
-api.add_resource(GetFriendList, '/friends/<user_id>')
-api.add_resource(SendFriendRequest, '/request')
+api.add_resource(GetFriendList, '/friends')
 api.add_resource(GetFriendRequests, '/requests')
+api.add_resource(SendFriendRequest, '/request')
 api.add_resource(AcceptRequest, '/request/accept')
 api.add_resource(RejectRequest, '/request/reject')
 

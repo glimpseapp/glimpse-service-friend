@@ -41,17 +41,10 @@ paths:
         404:
           description: User not found
 
-  "/request":
-    post:
+  "/requests":
+    get:
       description: Get the list of request for this user
       operationId: FriendRequestGet
-      parameters:
-      - in: body
-        name: request
-        description: UserId who is checking the requests
-        required: true
-        schema:
-          $ref: "#/definitions/FriendRequestGetParameters"
       responses:
         200:
           description: Return true if the request was accepted
@@ -60,6 +53,7 @@ paths:
         404:
           description: Friend request not found
 
+  "/request":
     post:
       description: Send a friend request
       operationId: FriendRequestPost
