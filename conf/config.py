@@ -1,6 +1,6 @@
 import os
 
-HTTP_PORT = os.getenv("HTTP_PORT", 5000)
+HTTP_PORT = os.getenv("HTTP_PORT", 5001)
 HTTP_HOST = os.getenv("HTTP_HOST", "0.0.0.0")
 
 # this can be an array of IPs

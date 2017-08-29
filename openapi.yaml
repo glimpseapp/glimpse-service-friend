@@ -23,16 +23,10 @@ paths:
           schema:
             $ref: "#/definitions/SuccessResponse"
 
-  "/friends/{userId}":
+  "/friends":
     get:
       description: Get the list of friends
       operationId: GetFriendList
-      parameters:
-      - in: path
-        name: userId
-        description: ID of the user
-        required: true
-        type: string
       responses:
         200:
           description: List of friends
@@ -59,29 +53,30 @@ paths:
       operationId: FriendRequestPost
       parameters:
       - in: body
-        name: request
-        description: UserId and request to UserId
+        name: body
+        description: User Id of the receiver
         required: true
         schema:
-          $ref: "#/definitions/FriendRequestPostParameters"
+          $ref: "#/definitions/SendFriendRequestParameters"
       responses:
         200:
           description: Return true if the request was accepted
           schema:
-            $ref: "#/definitions/SuccessResponse"
+            $ref: "#/definitions/SendFriendRequestResponse"
         404:
           description: Friend request not found
 
-  "/request/{requestId}/accept":
+  "/request/accept":
     post:
       description: Accept a friend request
       operationId: FriendRequestAccept
       parameters:
-      - in: path
-        name: requestId
-        description: Id of the request
+      - in: body
+        name: body
+        description: Request Id
         required: true
-        type: string
+        schema:
+          $ref: "#/definitions/RequestAcceptRejectParameters"
       responses:
         200:
           description: Return the user information
@@ -90,16 +85,17 @@ paths:
         404:
           description: Friend request not found
 
-  "/request/{requestId}/reject":
+  "/request/reject":
     post:
       description: Reject a friend request
       operationId: FriendRequestReject
       parameters:
-      - in: path
-        name: requestId
-        description: Id of the request
+      - in: body
+        name: body
+        description: Request Id
         required: true
-        type: string
+        schema:
+          $ref: "#/definitions/RequestAcceptRejectParameters"
       responses:
         200:
           description: Return true if the request was rejected
@@ -118,7 +114,7 @@ definitions:
   GetFriendsResponse:
     type: object
     properties:
-      tot:
+      results:
         description: Total number of friends
         type: number
       friends:
@@ -131,30 +127,45 @@ definitions:
     type: object
     properties:
       user_id:
-        description: Friend ID
+        type: string
+      username:
+        type: string
+      email:
         type: string
 
-  FriendRequestGetParameters:
-    type: object
-    properties:
-      user_id:
-        description: UserId of the sender
-        type: string
 
-  FriendRequestPostParameters:
+  SendFriendRequestParameters:
     type: object
     properties:
-      user_id:
-        description: UserId of the sender
-        type: string
       receiver_id:
         description: UserId of the receiver
         type: string
 
+  RequestAcceptRejectParameters:
+    type: object
+    properties:
+      request_id:
+        description: RequestId of the request
+        type: string
+
+  SendFriendRequestResponse:
+    type: object
+    properties:
+      request_id:
+        description: RequestId of the request
+        type: string
+
   FriendRequestGetResponse:
-    type: array
-    items:
-      $ref: "#/definitions/FriendRequestList"
+    type: object
+    properties:
+      results:
+        description: Total number of friends
+        type: number
+      requests:
+        description: Request list
+        type: array
+        items:
+          $ref: "#/definitions/FriendRequestList"
 
   FriendRequestList:
     type: object
@@ -163,6 +174,8 @@ definitions:
         description: UserId of the receiver
         type: string
 
+security:
+  - firebase: []
 
 securityDefinitions:
   api_key:
@@ -176,3 +189,4 @@ securityDefinitions:
     type: oauth2
     x-google-issuer: "https://securetoken.google.com/glimpse-123456"
     x-google-jwks_uri: "https://www.googleapis.com/service_accounts/v1/metadata/x509/securetoken@system.gserviceaccount.com"
+    x-google-audiences: "glimpse-123456"

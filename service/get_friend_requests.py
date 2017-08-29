@@ -24,6 +24,6 @@ class GetFriendRequests(Resource):
             requests.append(request_row.to_object())
 
         return {
-            "tot": len(requests),
+            "results": len(requests),
             "requests": requests
         }

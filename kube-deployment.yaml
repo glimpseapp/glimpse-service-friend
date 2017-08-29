@@ -16,7 +16,7 @@ spec:
           "-p", "8081",
           "-a", "127.0.0.1:5000",
           "-s", "friend.glimpse.online",
-          "-v", "2017-08-26r3",
+          "-v", "2017-08-29r2",
         ]
         ports:
           - containerPort: 8081
@@ -27,3 +27,5 @@ spec:
         env:
         - name: CASSANDRA_HOSTS
           value: cassandra
+        - name: USER_INFO_BULK_URL
+          value: http://glimpse.service.user
